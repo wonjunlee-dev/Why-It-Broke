@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="emerald">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Why It Broke</title>
+</head>
+<body tabindex="-1">
+    <%- include('partials/navbar', {page: '/login'}) %>
+
+    <div class="container mx-auto">
+        <div class="hero bg-base-200 rounded-lg p-6">
+            <div class="hero-content text-center">
+              <div class="max-w-md">
+                <h1 class="text-5xl font-bold">Log In</h1>
+                <p class="py-6">Please log in to continue</p>
+              </div>
+            </div>
+        </div>
+
+        <br />
+
+        <form method="post" action="/auth/login" class="space-y-4">
+
+            <div class="flex flex-col">
+              <label for="username" class="text-sm font-semibold text-gray-600">Username</label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                placeholder="Username"
+                required
+                value="<%= username %>"
+                class="mt-1 p-2 py-3 rounded-md bg-gray-50 border border-gray-300 text-sm text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          
+            <div class="flex flex-col">
+              <label for="password" class="text-sm font-semibold text-gray-600">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                required
+                class="mt-1 p-2 py-3 rounded-md bg-gray-50 border border-gray-300 text-sm text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          
+            <input
+              type="submit"
+              class="btn btn-primary w-full"
+              value="Login"
+            />
+
+            <p class="mt-4 text-center text-sm text-gray-600">
+              Don&#39;t have an account yet?
+              <a href="/auth/register" class="text-primary font-semibold hover:underline">Register here</a>
+            </p>
+          </form>
+
+          <br />
+
+          <% if (errorMessage) { %>
+              <div class="alert alert-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span><%= errorMessage %></span>
+              </div>
+          <% } %>
+
+    </div>
+</body>
+</html>

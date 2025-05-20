@@ -1,0 +1,69 @@
+<div class="navbar bg-base-100">
+    <div class="flex-1">
+      <a class="btn btn-ghost normal-case text-xl" href="/">Why It Broke</a>
+    </div>
+
+    <div class="dropdown">
+        <label tabindex="0" class="btn btn-ghost sm:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+        </label>
+        <ul tabindex="0" class="menu menu-sm dropdown-content right-0 mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a class="<%= (page == "/api/posts") ? 'active' : '' %>" href="/api/posts">View Posts</a></li>
+
+          <% if (user) { %>
+            <li><a class="<%= (page == "/api/addPost") ? 'active' : '' %>" href="/api/addPost">Create Post</a></li>
+            <li>
+              <details>
+                <summary>Account: <%= user.username %></summary>
+                <ul class="p-2 right-0">
+                  <li><a class="<%= (page == "/userHistory") ? 'active' : '' %>" href="/userHistory">User History</a></li>
+                  <li><a class="<%= (page == "/loginHistory") ? 'active' : '' %>" href="/loginHistory">LogIn History</a></li>
+                  <li><a href="/auth/logout">Log Out</a></li>
+                </ul>
+              </details>
+            </li>
+          <% } else { %>
+            <li>
+              <details>
+                <summary>Account</summary>
+                <ul class="p-2 right-0">
+                  <li><a class="<%= (page == "/auth/login") ? 'active' : '' %>" href="/auth/login">Login</a></li>
+                  <li><a class="<%= (page == "/auth/register") ? 'active' : '' %>" href="/auth/register">Register</a></li>
+                </ul>
+              </details>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+
+    <div class="navbar-center hidden sm:flex">
+      <ul class="menu menu-horizontal px-1 z-20">
+        <li><a class="<%= (page == "/api/posts") ? 'active' : '' %>" href="/api/posts">View Posts</a></li>
+
+        <% if (user) { %>
+          <li><a class="<%= (page == "/api/addPost") ? 'active' : '' %>" href="/api/addPost">Create Post</a></li>
+          <li>
+            <details>
+              <summary>Account: <%= user.username %></summary>
+              <ul class="p-2 right-0">
+                <li><a class="<%= (page == "/userHistory") ? 'active' : '' %>" href="/userHistory">User History</a></li>
+                <li><a class="<%= (page == "/loginHistory") ? 'active' : '' %>" href="/loginHistory">LogIn History</a></li>
+                <li><a href="/auth/logout">Log Out</a></li>
+              </ul>
+            </details>
+          </li>
+        <% } else { %>
+          <li>
+            <details>
+              <summary>Account</summary>
+              <ul class="p-2 right-0">
+                <li><a class="<%= (page == "/auth/login") ? 'active' : '' %>" href="/auth/login">Login</a></li>
+                <li><a class="<%= (page == "/auth/register") ? 'active' : '' %>" href="/auth/register">Register</a></li>
+              </ul>
+            </details>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+</div>
+<script src="/js/utils.js"></script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="emerald">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Why It Broke</title>
+</head>
+
+<body>
+    <%- include('partials/navbar', {page: '' }) %>
+
+        <div class="container mx-auto">
+        <div class="bg-base-200 rounded-lg p-4 mb-4">
+            <div class="text-center">
+              <div class="max-w-md mx-auto">
+                <h1 class="text-3xl font-bold">Edit Your Post</h1>
+              </div>
+            </div>
+        </div>
+            
+            <br>
+
+            <form class="post-form" action="/api/editPost" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" value="<%= post._id %>" name="id">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-0">
+
+                    <div class="mb-6">
+                        <label for="title" class="block font-medium my-2">Title</label>
+                        <input value="<%= post.title %>" type="text" id="title" name="title" required class="w-full rounded-md px-3 py-2 bg-white text-black border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"">
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block font-medium my-2">Image</label>
+                        <label for="image" class="btn btn-primary btn-sm cursor-pointer">
+                            Upload Image
+                            <input type="file" id="image" name="image" accept="image/*"
+                                class="hidden w-full rounded-md px-3 py-2" />
+                        </label>
+                        <span id="file-name" class="ml-3 text-sm text-gray-400"><%= post.image %></span>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="language" class="block font-medium my-2">Language</label>
+                        <select id="language" name="language" required class="w-full rounded-md px-3 py-2 bg-white text-black border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                        <% languages.forEach(lang=>{ %>
+                            <option value="<%= lang._id %>" <%= (post.language._id.toString() == lang._id.toString()) ? "selected" : "" %>>
+                            <%= lang.name %>
+                            </option>
+                            <% }) %>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-6 col-span-full">
+                        <label for="description" class="block font-medium my-2">Description</label>
+                        <textarea id="description" name="description" required
+                            class="textarea w-full rounded-md px-3 py-2 min-h-40 resize-y bg-white text-black border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"><%= post.description %></textarea>
+                    </div>
+
+                </div>
+
+                <div class="mt-6 flex justify-end space-x-2">
+                    <button type="submit" class="btn btn-success btn-sm">Update Post</button>
+                    
+                </form>
+                    <form class="delete-post-form" action="/api/deletePost/<%= post._id %>" method="POST">
+                        <input type="hidden" name="id" value="<%= post._id %>">
+                        <button type="submit" class="btn btn-sm btn-error text-center">Delete Post</button>
+                    </form>
+                </div>
+        </div>
+
+        <script src="/js/postForm.js"></script>
+        <script src="/js/deletePost.js"></script>
+</body>
+
+</html>

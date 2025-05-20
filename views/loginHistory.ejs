@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="emerald">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Why It Broke</title>
+</head>
+<body>
+    <%- include('partials/navbar', {page:"/loginHistory"}) %>
+
+    <div class="container mx-auto">
+        <div class="hero bg-base-200 rounded-lg p-6">
+            <div class="hero-content text-center">
+              <div class="max-w-md">
+                <h1 class="text-5xl font-bold"><%= user.username %></h1>
+                <p class="py-6">LogIn History: <%= user.email %></p>
+              </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="overflow-x-auto overflow-y-hidden">
+            <table class="table">
+                <thead>
+                    <tr class="">
+                        <th class="text-left">Login Date/Time</th>
+                        <th class="text-left">Client Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% user.loginHistory.forEach(entry => { %>
+                        <tr class="hover:bg-base-300">
+                            <td>
+                                <%= new Date(entry.dateTime).toLocaleString('en-CA', {
+                                    timeZone: 'America/Toronto',
+                                    weekday: 'short',
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: true,
+                                    timeZoneName: 'short'
+                                  }) %>
+                              </td>
+                            <td><%= entry.userAgent %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

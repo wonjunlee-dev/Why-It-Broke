@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="emerald">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Why It Broke</title>
+</head>
+<body>
+    <%- include('partials/navbar', {page:"/userHistory"}) %>
+
+    <div class="container mx-auto">
+        <div role="tablist" class="tabs tabs-lift tabs-lg tabs-bordered">
+            <a href="?tab=posts" role="tab" class="tab tab-lifted <%= tab === 'posts' ? 'tab-active' : '' %>">My Posts</a>
+            <a href="?tab=comments" role="tab" class="tab tab-lifted <%= tab === 'comments' ? 'tab-active' : '' %>">My Comments</a>
+        </div>
+
+        <% if (tab === 'posts') { %>
+        <div class="mt-4">
+            <% if (posts.length === 0) { %>
+                <p class="text-gray-500">No posts yet.</p>
+            <% } else { %>
+            <% posts.forEach(post => { %>
+                <div class="mb-4 p-4 rounded-lg bg-base-200">
+                <div class="flex justify-between items-start">
+                    <h2 class="text-xl font-semibold"><%= post.title %></h2>
+                    <a href="/api/posts/<%= post._id %>" class="btn btn-primary btn-xs">View Post</a>
+                </div>
+                <p class="text-gray-500 text-sm mb-5"><%= new Date(post.createdAt).toLocaleDateString() %></p>
+                <p class="line-clamp-4"><%= post.description %></p>
+                </div>
+            <% }) %>
+            <% } %>
+        </div>
+        <% } %>
+
+        <% if (tab === 'comments') { %>
+        <div class="mt-4">
+            <% if (comments.length === 0) { %>
+                <p class="text-gray-500">No comments yet.</p>
+            <% } else { %>
+            <% comments.forEach(comment => { %>
+                <div class="mb-4 p-4 rounded-lg bg-base-200">
+                <div class="flex justify-between items-start">
+                    <p class="text-gray-500 text-sm mb-3"><%= new Date(comment.createdAt).toLocaleDateString() %></p>
+                    <div class="flex items-center gap-2">
+                        <a href="/api/posts/<%= comment.post._id %>" class="btn btn-primary btn-xs">View Post</a>
+                        <form class="delete-comment-form" action="/api/deleteComment/<%= comment._id %>" method="POST">
+                            <button type="submit" class="btn btn-error btn-xs">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                <p><%= comment.content %></p>
+                </div>
+            <% }) %>
+            <% } %>
+        </div>
+        <% } %>
+
+    </div>
+
+    <script src="/js/comments.js"></script>
+</body>
+</html>

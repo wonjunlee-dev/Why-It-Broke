@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dim">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Why It Broke</title>
+</head>
+<body>
+    <%- include('partials/navbar', {page: ''}) %>
+
+    <div class="container mx-auto">
+        <div class="bg-base-200 rounded-lg p-4 mb-4">
+            <div class="text-center">
+              <div class="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto">
+                <h1 class="text-3xl font-bold mb-1"><%= post.title %></h1>
+                <p class="text-center text-xs text-gray-500 mt-0"><%= post.author.username %></p>
+              </div>
+            </div>
+        </div>
+        
+        <div class="space-y-6">
+            <div class="mb-5">
+                <% if (post.image) { %>
+                    <img class="w-full max-h-64 object-contain rounded-lg" src="<%= post.image %>" alt="post_img">
+                <% } %>
+            </div>
+            <div>
+                <p><%- post.description.replace(/\n/g, '<br>') %></p>
+
+                <br />
+                
+                <div class="divider w-full border-gray-400"></div>
+
+                <div class="mt-8">
+                <h3 class="text-lg font-semibold mb-3">Comments</h3>
+                <% if (comments.length === 0) { %>
+                    <p class="text-gray-500 mb-5">No comments yet.</p>
+                <% } %>
+                <% comments.forEach(comment => { %>
+                    <div class="mb-3 p-3 bg-base-200 rounded-xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold text-black text-sm"><%= comment.author.username %></span>
+                            <span class="text-xs text-gray-500"><%= new Date(comment.createdAt).toLocaleDateString() %></span>
+                        </div>
+                        <p class="text-sm text-gray-700"><%= comment.content.replace(/\n/g, '<br>') %></p>
+                    </div>
+                <% }) %>
+                </div>
+
+                <% if (user) { %>
+                <form class="comment-form" action="/api/comments/<%= post._id %>" method="POST" class="mt-6 space-y-2">
+
+                    <textarea name="content" class="textarea textarea-bordered w-full border border-gray-400 focus:border-gray-600 focus:outline-none shadow-lg rounded-xl" placeholder="Write your comment..." required></textarea>
+                    <div class="flex justify-end">
+                    <button type="submit" class="btn btn-primary btn-sm">Add Comment</button>
+                    </div>
+                </form>
+                <% } else { %>
+                <p class="text-sm text-gray-500 mt-6"><a href="/auth/login" class="font-semibold hover:underline">Login</a> to leave a comment.</p>
+                <% } %>
+
+                <br /><br />
+
+                <div class="flex justify-end mt-4 gap-x-2">
+                    <%
+                    const isAuthor = user && user._id && user._id.toString() === post.author._id.toString();
+                    const isAdmin = user && user.role === "admin";
+                    %>
+
+                    <% if (isAuthor || isAdmin) { %>
+                    <a class="btn btn-success btn-sm" href="/api/editPost/<%= post._id %>">
+                        Edit Post
+                    </a>
+                    <% } %>
+                    <br />
+                    <a class="btn btn-primary btn-sm" href="#" onclick="history.back(); return false;">Return</a>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/comments.js"></script>
+</body>
+</html>
