@@ -12,7 +12,7 @@ const comment = require('./controllers/commentController');
 const languageLoader = require('./middleware/languageLoad');
 
 app.use(cors({
-    origin: 'http://localhost:8080',
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
 
