@@ -34,7 +34,7 @@ if (deleteCommentForm) {
         const url = deleteCommentForm.getAttribute("action");
 
         const res = await fetchWithRefresh(url, {
-            method: "POST",
+            method: "DELETE",
             credentials: "include",
         });
 

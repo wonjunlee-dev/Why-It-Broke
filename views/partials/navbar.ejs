@@ -8,10 +8,10 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
         </label>
         <ul tabindex="0" class="menu menu-sm dropdown-content right-0 mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52">
-          <li><a class="<%= (page == "/api/posts") ? 'active' : '' %>" href="/api/posts">View Posts</a></li>
+          <li><a class="<%= (page == "/posts") ? 'active' : '' %>" href="/posts">View Posts</a></li>
 
           <% if (user) { %>
-            <li><a class="<%= (page == "/api/addPost") ? 'active' : '' %>" href="/api/addPost">Create Post</a></li>
+            <li><a class="<%= (page == "/addPost") ? 'active' : '' %>" href="/addPost">Create Post</a></li>
             <li>
               <details>
                 <summary>Account: <%= user.username %></summary>
@@ -38,10 +38,10 @@
 
     <div class="navbar-center hidden sm:flex">
       <ul class="menu menu-horizontal px-1 z-20">
-        <li><a class="<%= (page == "/api/posts") ? 'active' : '' %>" href="/api/posts">View Posts</a></li>
+        <li><a class="<%= (page == "/posts") ? 'active' : '' %>" href="/posts">View Posts</a></li>
 
         <% if (user) { %>
-          <li><a class="<%= (page == "/api/addPost") ? 'active' : '' %>" href="/api/addPost">Create Post</a></li>
+          <li><a class="<%= (page == "/addPost") ? 'active' : '' %>" href="/addPost">Create Post</a></li>
           <li>
             <details>
               <summary>Account: <%= user.username %></summary>

@@ -30,28 +30,23 @@ async function getPostByLanguage(languageId) {
 }
 
 async function createPost(req, res) {
-    try {
-        const { title, description, language } = req.body;
+    const { title, description, language } = req.body;
 
-        const imgFile = req.file;
-        const image = imgFile ? "/uploads/" + imgFile.filename : "";
+    const imgFile = req.file;
+    const image = imgFile ? "/uploads/" + imgFile.filename : "";
 
-        const newPost = await Post.create({
-            title,
-            description,
-            language,
-            image,
-            author: {
-                _id: req.user._id,
-                username: req.user.username
-            }
-        });
+    const newPost = await Post.create({
+        title,
+        description,
+        language,
+        image,
+        author: {
+            _id: req.user._id,
+            username: req.user.username
+        }
+    });
 
-        res.status(201).json({ message: "Post successfully added", postId: newPost._id });
-    }
-    catch (err) {
-        res.status(500).json({ message: "Something went wrong. Please try again later." });
-    }
+    return newPost;
 };
 
 async function editPost(postID, postData) {

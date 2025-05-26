@@ -17,14 +17,14 @@ router.post("/comments/:postId", secure.passportAuth({ redirect: false }), async
     }
 });
 
-router.post("/deleteComment/:commentId", secure.passportAuth({ redirect: false }), async (req, res) => {
+router.delete("/comments/:commentId", secure.passportAuth({ redirect: false }), async (req, res) => {
     try {
         const result = await comment.deleteCommentById(req.params.commentId);
 
         if (result.deletedCount === 0)
             res.status(404).json({ error: "Comment Not Found"});
         
-        res.redirect("/userHistory?tab=comments");
+        res.status(200).json({ message: "Comment deleted successfully" });
     }
     catch (err) {
         res.status(500).json({error: "Something went wrong. Please try again later."});

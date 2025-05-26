@@ -25,7 +25,7 @@
                 <div class="mb-4 p-4 rounded-lg bg-base-200">
                 <div class="flex justify-between items-start">
                     <h2 class="text-xl font-semibold"><%= post.title %></h2>
-                    <a href="/api/posts/<%= post._id %>" class="btn btn-primary btn-xs">View Post</a>
+                    <a href="/posts/<%= post._id %>" class="btn btn-primary btn-xs">View Post</a>
                 </div>
                 <p class="text-gray-500 text-sm mb-5"><%= new Date(post.createdAt).toLocaleDateString() %></p>
                 <p class="line-clamp-4"><%= post.description %></p>
@@ -45,8 +45,8 @@
                 <div class="flex justify-between items-start">
                     <p class="text-gray-500 text-sm mb-3"><%= new Date(comment.createdAt).toLocaleDateString() %></p>
                     <div class="flex items-center gap-2">
-                        <a href="/api/posts/<%= comment.post._id %>" class="btn btn-primary btn-xs">View Post</a>
-                        <form class="delete-comment-form" action="/api/deleteComment/<%= comment._id %>" method="POST">
+                        <a href="/posts/<%= comment.post._id %>" class="btn btn-primary btn-xs">View Post</a>
+                        <form class="delete-comment-form" action="/api/comments/<%= comment._id %>" method="POST">
                             <button type="submit" class="btn btn-error btn-xs">Delete</button>
                         </form>
                     </div>

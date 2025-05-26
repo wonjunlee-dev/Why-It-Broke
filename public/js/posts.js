@@ -6,8 +6,7 @@ document.querySelectorAll(".post-form").forEach(form => {
         const description = form.querySelector("#description").value;
         const language = form.querySelector("#language").value;
         const image = form.querySelector("#image").files[0];
-        const idInput = form.querySelector('input[name="id"]');
-        const id = idInput ? idInput.value : null;
+        const id = document.getElementById("postId")?.value;
 
         const formData = new FormData();
         formData.append("title", title);
@@ -18,9 +17,10 @@ document.querySelectorAll(".post-form").forEach(form => {
             formData.append("id", id);
 
         const actionUrl = form.getAttribute("action");
+        const method = id ? "PUT" : "POST";
 
         const res = await fetchWithRefresh(actionUrl, {
-            method: "POST",
+            method: method,
             credentials: "include",
             body: formData,
         });
@@ -37,6 +37,27 @@ document.querySelectorAll(".post-form").forEach(form => {
         }
     });
 });
+
+const deleteForm = document.querySelector(".delete-post-form");
+if (deleteForm) {
+    deleteForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const url = deleteForm.getAttribute("action");
+
+        const res = await fetchWithRefresh(url, {
+            method: "DELETE",
+            credentials: "include",
+        });
+
+        if (res.ok) {
+            window.location.href = "/";
+        }
+        else {
+            handleErrorResponse(res);
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("image");

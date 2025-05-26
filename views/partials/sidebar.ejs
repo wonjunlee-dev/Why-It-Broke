@@ -4,7 +4,7 @@
     <% languages.forEach(lang => { %>
       <li>
         <a
-          href="/api/posts?languageId=<%= lang._id %>"
+          href="/posts?languageId=<%= lang._id %>"
           class="block w-full text-left px-4 py-2 rounded-lg hover:bg-base-300 hover:text-primary font-medium transition-colors duration-200 ease-in-out <%= (selectedLanguageId == lang._id.toString()) ? 'btn-active bg-neutral text-white' : '' %>""
         >
           <%= lang.name %>

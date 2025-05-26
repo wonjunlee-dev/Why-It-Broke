@@ -23,9 +23,9 @@
             
             <br>
 
-            <form class="post-form" action="/api/editPost" method="POST" enctype="multipart/form-data">
+            <form class="post-form" action="/api/posts/<%= post._id %>" method="POST" enctype="multipart/form-data">
 
-                <input type="hidden" value="<%= post._id %>" name="id">
+                <input type="hidden" id="postId" value="<%= post._id %>">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-0">
 
@@ -69,15 +69,14 @@
                     <button type="submit" class="btn btn-success btn-sm">Update Post</button>
                     
                 </form>
-                    <form class="delete-post-form" action="/api/deletePost/<%= post._id %>" method="POST">
+                    <form class="delete-post-form" action="/api/posts/<%= post._id %>" method="POST">
                         <input type="hidden" name="id" value="<%= post._id %>">
                         <button type="submit" class="btn btn-sm btn-error text-center">Delete Post</button>
                     </form>
                 </div>
         </div>
 
-        <script src="/js/postForm.js"></script>
-        <script src="/js/deletePost.js"></script>
+        <script src="/js/posts.js"></script>
 </body>
 
 </html>

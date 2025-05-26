@@ -7,15 +7,15 @@ const passport = require('./config/passport');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const secure = require('./middleware/auth');
-const post = require('./controllers/postController');
-const comment = require('./controllers/commentController');
 const languageLoader = require('./middleware/languageLoad');
+const methodOverride = require('method-override');
 
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true
 }));
 
+app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -39,29 +39,10 @@ const commentRoutes = require('./routes/comment');
 app.use('/api', commentRoutes);
 
 const langRoutes = require('./routes/language');
-app.use('/lang', langRoutes);
+app.use('/api', langRoutes);
 
-app.get("/", async (req, res) => {
-    try {
-        const posts = await post.getRecentPosts();
-        res.render("home", { recentPosts: posts });
-    }
-    catch (err) {
-        res.json(`ERR: ${err}`);
-    }
-});
-
-app.get("/loginHistory", secure.passportAuth({ redirect: true }), (req, res) => {
-    res.render("loginHistory");
-});
-
-app.get("/userHistory", secure.passportAuth({ redirect: true }), async (req, res) => {
-    const tab = req.query.tab || 'posts';
-    const posts = await post.getPostsById(req.user._id);
-    const comments = await comment.getCommentsById(req.user._id);
-
-    res.render("userHistory", { posts: posts, comments: comments, tab: tab });
-});
+const viewRoutes = require('./routes/view');
+app.use('/', viewRoutes);
 
 app.use((req, res, next) => {
     res.status(404).render("404", { message: "Sorry, we're unable to find what you're looking for" });

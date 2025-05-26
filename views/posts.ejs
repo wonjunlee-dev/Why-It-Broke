@@ -8,7 +8,7 @@
     <title>Why It Broke</title>
 </head>
 <body>
-    <%- include('partials/navbar', {page:"/api/posts"}) %>
+    <%- include('partials/navbar', {page:"/posts"}) %>
 
     <div class="flex flex-col lg:flex-row px-6 gap-6 w-full">
         <%- include('partials/sidebar', {page: '/home'}) %>
@@ -44,12 +44,12 @@
                     <tr class="hover:bg-base-300 text-center align-middle">
                         <td class="w-[18%]"><%= post.title %></td>
                         <td class="w-[12%]">
-                        <a href="/api/posts/?languageId=<%= post.language._id %>" 
+                        <a href="/posts/?languageId=<%= post.language._id %>" 
                             class="btn btn-md w-[110px] mx-auto"><%= post.language.name %></a>
                         </td>
                         <td class="w-[55%] truncate"><%= post.description %></td>
                         <td class="w-[15%]">
-                        <a href="/api/posts/<%= post._id %>" 
+                        <a href="/posts/<%= post._id %>" 
                             class="btn btn-md w-[110px]">details</a>
                         </td>
                     </tr>
