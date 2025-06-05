@@ -2,7 +2,7 @@
 
 A community-driven web application built with Node.js, where developers can share unexpected errors or bugs and discuss solutions or ideas through comments.
 
-[🔗 Live Demo](https://why-it-broke.onrender.com)
+[🔗 Live Demo](https://why-it-broke-production.up.railway.app)
 
 📸 Preview
 <p float="left">
@@ -41,7 +41,7 @@ A community-driven web application built with Node.js, where developers can shar
 - **Database**: MongoDB, Mongoose
 - **Authentication**: JWT, Passport.js (passport-jwt), bcrypt
 - **Templating**: EJS
-- **Deployment**: Render
+- **Deployment**: Railway
 - **Version Control**: GitHub
 
 ## 📚 Challenges & Learnings
